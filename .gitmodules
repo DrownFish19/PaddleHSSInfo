@@ -1,0 +1,3 @@
+[submodule "HSSInfo"]
+	path = HSSInfo
+	url = https://github.com/DrownFish19/HSSInfo.git
