@@ -35,13 +35,14 @@ std::vector<paddle::Tensor> HSSInfoForward(const paddle::Tensor &nodes,
 
   paddle::Tensor out = paddle::empty({nodes.numel()}, paddle::DataType::INT32);
   auto *out_data = out.data<int>();
-  int out_idx = 0;
+  for (auto i = 0; i < nodes.numel(); i++){
+    out_data[i] = -1;
+  }
   int group_idx = 0;
   for (auto i = 0; i < info.h_community.size(); i++) {
     if (!info.h_community[i].empty()) {
-      for (auto j = 0; j < info.h_community[i].size(); j++) {
-        out_data[out_idx] = group_idx;
-        out_idx++;
+      for (auto index = info.h_community[i].cbegin(); index < info.h_community[i].cend(); index++) {
+        out_data[*index] = group_idx;
       }
       group_idx++;
     }
